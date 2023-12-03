@@ -15,13 +15,13 @@ func parseGamesFromInput(input []string) map[int]map[string]float64 {
 		parsedGames[gameId] = make(map[string]float64)
 		for _, reveal := range strings.Split(cubeReveals, ",") {
 			revealSplitted := strings.Split(strings.TrimSpace(reveal), " ")
-			cubesCount, _ := strconv.Atoi(revealSplitted[0])
+			cubesCount, _ := strconv.ParseFloat(revealSplitted[0], 64)
 			cubesColour := revealSplitted[1]
 			currentCubesCount, ok := parsedGames[gameId][cubesColour]
 			if ok {
-				parsedGames[gameId][cubesColour] = math.Max(float64(cubesCount), float64(currentCubesCount))
+				parsedGames[gameId][cubesColour] = math.Max(cubesCount, currentCubesCount)
 			} else {
-				parsedGames[gameId][cubesColour] = float64(cubesCount)
+				parsedGames[gameId][cubesColour] = cubesCount
 			}
 		}
 	} 
